@@ -1,0 +1,1 @@
+# En utilisant le mécanisme Ajax pour chargement d’une liste déroulante selon une action sélecte appliquée sur une autre liste déroulante (pays → région → ville), les informations sont stockes dans une base de données mysql (Trois tables):
