@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site E-commerce</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <style>
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="" method="post">
+        <table width="500">
+            <tr>
+                <td><label for="nom">Nom</label></td>
+                <td><input type="text" name="nom" id="nom"></td>
+            </tr>
+            <tr>
+                <td><label for="prenom">Prenom</label></td>
+                <td><input type="text" name="prenom" id="prenom"></td>
+            </tr>
+            <tr>
+                <td><label for="adresse">Adresse</label></td>
+                <td><input type="text" name="adresse" id="adresse"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email</label></td>
+                <td><input type="text" name="email" id="email"></td>
+            </tr>
+            <tr>
+                <td><label for="login">Login</label></td>
+                <td><input type="text" name="login" id="login"></td>
+            </tr>
+            <tr>
+                <td><label for="mdp">Mot de passe</label></td>
+                <td><input type="password" name="mdp" id="mdp"></td>
+            </tr>
+            <tr>
+                <td><label for="cmdp">Confirmer Mot de passe</label></td>
+                <td><input type="password" name="cmdp" id="cmdp"></td>
+            </tr>
+            <tr>
+                <td><label for="telephone">Telephone</label></td>
+                <td><input type="tel" name="telephone" id="telephone"></td>
+            </tr>
+            <tr>
+                <td><label for="civilite">Civilite</label></td>
+                <td><input type="text" name="civilite" id="civilite"></td>
+            </tr>
+            <tr>
+                <td><label for="pays">Pays</label></td>
+                <td><input type="text" name="pays" id="pays"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submitBtn" type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('form').on('submit', function (event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            $('.error').remove();
+            $('.success').remove();
+
+            $('input').each(function () {
+                if ($(this).val().trim() === '') {
+                    isValid = false;
+                    $(this).parent().parent().after('<td colspan="1"><span class="error">Ce champ est obligatoire</span></td>');
+                }
+            });
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const email = $('#email').val().trim();
+            if (!emailRegex.test(email)) {
+                isValid = false;
+                $('#email').parent().parent().after('<td colspan="1"><span class="error">Veuillez entrer un email valide</span></td>');
+            }
+
+            const phoneRegex = /^(\+212|0)[67]\d{8}$/;
+            const phone = $('#telephone').val().trim();
+            if (!phoneRegex.test(phone)) {
+                isValid = false;
+                $('#telephone').parent().parent().after('<span class="error">Veuillez entrer un numéro de téléphone valide</span>');
+            }
+
+            const password = $('#mdp').val().trim();
+            const confirmPassword = $('#cmdp').val().trim();
+            if (password !== confirmPassword) {
+                isValid = false;
+                $('#cmdp').parent().parent().after('<span class="error">Les mots de passe doivent correspondre</span>');
+            }
+
+            if (isValid) {
+                $('#submitBtn').parent().parent().after('<span class="success">Formulaire envoyée.</span>');
+            }
+        });
+    });
+</script>
+
+</html>
